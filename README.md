@@ -5,13 +5,17 @@ Descriptions are similar to Ansible. The state of a file, package, service, ... 
 
 Example:
 ```kotlin
-apt("redis-server") {
-    state=INSTALLED
-}
+import com.anies.bricks.*
 
-file {
-    "/etc/foo.conf" copyOf "../foo.conf"
-    "/etc/bar.sh" copyOf "../bar.sh"
+state {
+    apt("redis-server") {
+        state=INSTALLED
+    }
+    
+    file {
+        "/etc/foo.conf" copyOf "../foo.conf"
+        "/etc/bar.sh" copyOf "../bar.sh"
+    }
 }
 ```
 
