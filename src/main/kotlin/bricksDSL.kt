@@ -26,7 +26,7 @@ abstract class Brick {
 class State: Brick() {
     fun apt(init: AptBrick.() -> Unit) = initBrick(AptBrick(), init)
 
-    fun file(init: FileBrick.() -> Unit) = initBrick(FileBrick(), init)
+    fun file(init: FileGroup.() -> Unit) = initBrick(FileGroup(), init)
     fun file(name: String, init: FileBrick.() -> Unit) = initBrick(FileBrick(), init)
 }
 
@@ -36,13 +36,12 @@ class FileBrick: Brick {
         TODO("Construct and return some useful node. Use the path param (path).")
     }
 
-    /**
-     * Declare a FileBrick using the "path" {...} syntax.
-     */
-    operator fun String.invoke(init: FileBrick.() -> Unit) {
-        initBrick(FileBrick(this), init)
+    fun copyOf(source: String) {
+        TODO("Set this brick to be a copy of the source file")
     }
+}
 
+class FileGroup: Brick() {
     /**
      * Declare a FileBrick using the "path" copyOf "source" syntax.
      */
@@ -52,8 +51,11 @@ class FileBrick: Brick {
         children.add(fileBrick)
     }
 
-    fun copyOf(source: String) {
-        TODO("Set this brick to be a copy of the source file")
+    /**
+     * Declare a FileBrick using the "path" {...} syntax.
+     */
+    operator fun String.invoke(init: FileBrick.() -> Unit) {
+        initBrick(FileBrick(this), init)
     }
 }
 
