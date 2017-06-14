@@ -24,11 +24,38 @@ abstract class Brick {
 }
 
 class State: Brick() {
-    fun file(init: FileBrick.() -> Unit) = initBrick(FileBrick(), init)
-
     fun apt(init: AptBrick.() -> Unit) = initBrick(AptBrick(), init)
+
+    fun file(init: FileBrick.() -> Unit) = initBrick(FileBrick(), init)
+    fun file(name: String, init: FileBrick.() -> Unit) = initBrick(FileBrick(), init)
 }
 
-class FileBrick: Brick()
+class FileBrick: Brick {
+    constructor(): super()
+    constructor(path: String): super() {
+        TODO("Construct and return some useful node. Use the path param (path).")
+    }
+
+    /**
+     * Declare a FileBrick using the "path" {...} syntax.
+     */
+    operator fun String.invoke(init: FileBrick.() -> Unit) {
+        initBrick(FileBrick(this), init)
+    }
+
+    /**
+     * Declare a FileBrick using the "path" copyOf "source" syntax.
+     */
+    infix fun String.copyOf(source: String) {
+        val fileBrick = FileBrick(this)
+        fileBrick.copyOf(source)
+        children.add(fileBrick)
+    }
+
+    fun copyOf(source: String) {
+        TODO("Set this brick to be a copy of the source file")
+    }
+}
+
 
 class AptBrick: Brick()

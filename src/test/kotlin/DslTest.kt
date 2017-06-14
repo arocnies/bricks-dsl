@@ -8,6 +8,19 @@ fun main(args: Array<String>) {
 
         }
         apt {
+
+        }
+
+        file("foo") {
+            copyOf("src/foo.conf")
+        }
+        file {
+            "bar" {
+
+            }
+        }
+        file {
+            "/etc/foo.conf" copyOf "src/foo.conf"
         }
     }
 }
