@@ -15,29 +15,28 @@ fun state(init: State.() -> Unit): State {
 
 @BrickMarker
 abstract class Brick {
+    val children = arrayListOf<Brick>()
 
-    internal fun <T: Brick> initBrick(brick: T, init: T.() -> Unit): T {
+    fun <T : Brick> initBrick(brick: T, init: T.() -> Unit): T {
         brick.init()
         children.add(brick)
         return brick
     }
-    val children = arrayListOf<Brick>()
-
 }
 
-class State: Brick()
+class State : Brick()
 
-abstract class NamedGroup : Brick() {
-    /**
-     * Declare a brick using the "name" {...} syntax.
-     */
-    operator fun String.invoke(init: FileBrick.() -> Unit) {
-        initBrick(FileBrick(this), init)
+abstract class NamedGroup<T : NamedBrick> : Brick() {
+    abstract fun createBrick(): T
+
+    /** Declare a brick using the "name" {...} syntax. */
+    operator fun String.invoke(init: T.() -> Unit) {
+        val brick = createBrick()
+        brick.name = this
+        initBrick(brick, init)
     }
 }
 
-abstract class NamedBrick(name: String) : Brick() {
-    init {
-        TODO("Construct and return some useful node. Use the path param (path).")
-    }
+abstract class NamedBrick constructor() : Brick() {
+    var name: String = ""
 }

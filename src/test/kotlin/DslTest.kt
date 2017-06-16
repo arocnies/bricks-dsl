@@ -11,20 +11,40 @@ fun main(args: Array<String>) {
 
             }
         }
-        apt("httpd") {
-
-        }
-
-        file("foo") {
-            copyOf("src/foo.conf")
-        }
         file {
             "bar" {
+                copyOf("src/bar.conf")
+                owner = ""
+                mode = 777
+            }
+
+
+            "foo" {
 
             }
         }
         file {
             "/etc/foo.conf" copyOf "src/foo.conf"
+        }
+
+
+        // -----
+
+        apt {
+            "ppa:nginx/stable" {
+                state = PackageState.PRESENT
+            }
+            "nginx" {
+                state = PackageState.PRESENT
+            }
+        }
+        file {
+            "/etc/foo/" {
+                state = FileState.PRESENT
+                mode = 755
+                owner = "www-data"
+                group = "www-data"
+            }
         }
     }
 }
