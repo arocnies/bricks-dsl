@@ -1,4 +1,6 @@
 import com.anies.bricks.*
+import com.anies.bricks.apt.apt
+import com.anies.bricks.file.file
 
 /**
  * Created by anies on 6/13/17.
@@ -13,7 +15,7 @@ fun main(args: Array<String>) {
         }
         file {
             "bar" {
-                copyOf("src/bar.conf")
+                state = copyOf("src/bar.conf")
                 owner = ""
                 mode = 777
             }
@@ -32,19 +34,22 @@ fun main(args: Array<String>) {
 
         apt {
             "ppa:nginx/stable" {
-                state = PackageState.PRESENT
+                state = present()
             }
             "nginx" {
-                state = PackageState.PRESENT
+                state = any()
             }
         }
         file {
             "/etc/foo/" {
-                state = FileState.PRESENT
+                state = copyOf("../foo")
                 mode = 755
                 owner = "www-data"
                 group = "www-data"
             }
+        }
+        file {
+            "bar" { state = present() }
         }
     }
 }

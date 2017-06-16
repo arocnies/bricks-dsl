@@ -37,6 +37,6 @@ abstract class NamedGroup<T : NamedBrick> : Brick() {
     }
 }
 
-abstract class NamedBrick constructor() : Brick() {
+abstract class NamedBrick : Brick() {
     var name: String = ""
 }
