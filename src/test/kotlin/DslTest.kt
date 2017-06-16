@@ -1,4 +1,5 @@
 import com.anies.bricks.*
+import com.anies.bricks.apt.AptBrick
 import com.anies.bricks.apt.apt
 import com.anies.bricks.file.file
 
@@ -52,4 +53,10 @@ fun main(args: Array<String>) {
             "bar" { state = present() }
         }
     }
+
+    AptBrick().apply {
+        name = "foo"
+        this.state = present()
+    }
+
 }
