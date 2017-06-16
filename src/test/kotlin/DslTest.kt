@@ -1,7 +1,7 @@
 import com.anies.bricks.*
-import com.anies.bricks.apt.AptBrick
-import com.anies.bricks.apt.apt
-import com.anies.bricks.file.file
+import com.anies.bricks.AptBrick
+import com.anies.bricks.apt
+import com.anies.bricks.file
 
 /**
  * Created by anies on 6/13/17.
@@ -38,7 +38,7 @@ fun main(args: Array<String>) {
                 state = present()
             }
             "nginx" {
-                state = any()
+                state = latest()
             }
         }
         file {
@@ -51,6 +51,12 @@ fun main(args: Array<String>) {
         }
         file {
             "bar" { state = present() }
+        }
+        service {
+            "networking" {
+                state=restarted()
+                enabled = false
+            }
         }
     }
 

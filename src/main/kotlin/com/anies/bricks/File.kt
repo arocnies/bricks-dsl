@@ -1,8 +1,4 @@
-package com.anies.bricks.file
-
-import com.anies.bricks.NamedBrick
-import com.anies.bricks.NamedGroup
-import com.anies.bricks.State
+package com.anies.bricks
 
 /**
  * Created by anies on 6/13/17.
