@@ -33,11 +33,3 @@ Example from `src/test/kotlin/.../ClassExample.kt`
     }
 }
 ```
-
-Example using multi item descriptor:
-```kotlin
-apt {
-    "redis-server" { state=INSTALLED }
-    "nmap" { state=LATEST }
-}
-```
